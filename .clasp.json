@@ -1,0 +1,6 @@
+{
+    "scriptId": "scriptIdGoogleSheet",
+    "mainScriptId": "mainScriptGoogleSheet",
+    "rootDir": "src/",
+    "fileExtension": "ts"
+}

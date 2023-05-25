@@ -1,0 +1,41 @@
+<script>
+    function timer(element, newMessage = 'Script copied ✅!', time = 1000) {
+        const buttonText = element.innerText;
+        element.innerText = newMessage;
+
+        const timeoutId = setTimeout(() => {
+            element.innerText = buttonText;
+            setTimeout(timeoutId);
+        }, time);
+    }
+
+    function addListeners() {
+    const button = document.getElementById('copyButton');
+
+        const copyToClipboard = () => {
+        const codeElement = document.getElementById('code');
+        const code = (codeElement && codeElement.innerText) || 'No text copied!'
+        const el = document.createElement('textarea');
+        el.value = code;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.focus();
+        el.select();
+        timer(button);
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Fallback: Copying text command was ' + msg);
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+        console.log(successful);
+        document.body.removeChild(el);
+    }
+    button.addEventListener('click', copyToClipboard);
+
+}
+    window.addEventListener('load', addListeners());
+</script>

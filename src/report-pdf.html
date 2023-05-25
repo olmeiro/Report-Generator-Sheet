@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <?!= include('report-stylesheets') ?>
+</head>
+
+<body>
+    <h3>Generate PDF</h3>
+    <p>
+        <? if (pdf) {?>
+        <a class="anchor" target="_blank" href="<?= pdf.url ?>" class="btn btn-primary">Download Summary PDF</a>
+        <? }?>
+    </p>
+    <p>
+        Calculated seniority: <strong><?= seniority ?></strong>
+    </p>
+    <script type="text/javascript">
+        document.getElementsByClassName("anchor")[0].click();
+        google.script.host.close();
+    </script>
+
+</body>
+ 
+</html>

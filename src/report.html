@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <?!= include('report-stylesheets') ?>
+</head>
+
+<body>
+    <h3>Paste the below snippet into the Dev Tools on <a href="https://glow.corp.XYZ.com/#/dashboard/interviews" target="blank">Glow platform</a></h3>
+    <div class="alert alert-warning">Please create the interview's draft before paste the snippet</div>
+    <div>
+        <button id="copyButton" class="btn btn-success">Copy script to Clipboard</button>
+    </div>
+    <pre class="hide">
+        <code id="code">
+            (function(){
+
+                async function updateInfo(data) {
+                    console.clear();
+                    console.log('%c Saving interview information...', 'color: #FF0; font-size: 14px');
+                    const response = await fetch(
+                        'api_interviews',
+                        {
+                        credentials: 'include',
+                        referrer: 'http:fakeapi.com',
+                        referrerPolicy: 'no-referrer-when-downgrade',
+                        mode: 'cors',
+                        method: 'POST',
+                        headers: {
+                            accept: 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json; charset=UTF-8',
+                            Origin: 'https://glow.corp.xxx.com/',
+                            'Content-Encoding': 'gzip',
+                            appversion:"4.0.0",
+                            "cache-control":"no-cache",
+                            "sec-fetch-mode":"cors",
+                            "sec-fetch-site":"same-site",
+                            "x-forwarded-for":"72.229.28.185"
+                        },
+                        body: JSON.stringify(data),
+                        },
+                    );
+                    if (response.status > 199 && response.status < 300) {
+                        console.log('%c Interview information was saved!', 'color: #0F0; font-size: 20px');
+                    } else {
+                        const json = await response.json();
+                        console.error('Update failed:', json.message);
+                    }
+                }
+            
+                var data = <?= JSON.stringify(data)?>;
+            
+                updateInfo(data);
+            })();
+        </code>
+        
+    </pre>
+    <?!= include('report-scripts') ?>
+</body>
+
+</html>
